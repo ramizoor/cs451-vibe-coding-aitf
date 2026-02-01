@@ -1,0 +1,20 @@
+<%- include("partials/header", { title, user, csrfToken }) %>
+
+<h1>SVSU AI Hub</h1>
+
+<p class="muted">
+  A simple place for the SVSU AI Task Force to share internal project updates and external AI links.
+</p>
+
+<ul>
+  <li><a href="/internal">Internal AI Projects</a></li>
+  <li><a href="/external">External AI News & Products</a></li>
+</ul>
+
+<% if (user && !user.verified) { %>
+  <div class="callout warn">
+    Your account is not verified yet. Please <a href="/verify">verify your SVSU email</a> to post and comment.
+  </div>
+<% } %>
+
+<%- include("partials/footer") %>

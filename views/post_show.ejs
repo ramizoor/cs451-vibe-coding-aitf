@@ -1,0 +1,46 @@
+<%- include("partials/header", { title, user, csrfToken }) %>
+
+<h1><%= post.title %></h1>
+
+<div class="muted">
+  by <%= post.author_name %> on <%= new Date(post.created_at).toLocaleString() %>
+</div>
+
+<% if (post.section === "internal") { %>
+  <p class="card"><%= post.body %></p>
+  <p><a href="/internal">Back to internal projects</a></p>
+<% } else { %>
+  <p class="card">
+    External link:
+    <a href="<%= post.url %>" target="_blank" rel="noreferrer"><%= post.url %></a>
+  </p>
+  <p><a href="/external">Back to external news</a></p>
+<% } %>
+
+<h2>Comments</h2>
+
+<% if (!comments.length) { %>
+  <p class="muted">No comments yet.</p>
+<% } else { %>
+  <ul class="list">
+    <% comments.forEach(c => { %>
+      <li>
+        <strong><%= c.author_name %></strong> on <%= new Date(c.created_at).toLocaleString() %><br/>
+        <%= c.body %>
+      </li>
+    <% }) %>
+  </ul>
+<% } %>
+
+<% if (user && user.verified) { %>
+  <h3>Add a comment</h3>
+  <form method="post" action="/posts/<%= post.id %>/comments" class="form">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <textarea name="body" rows="4" required></textarea>
+    <button type="submit">Comment</button>
+  </form>
+<% } else { %>
+  <p class="muted">Log in and verify to comment.</p>
+<% } %>
+
+<%- include("partials/footer") %>

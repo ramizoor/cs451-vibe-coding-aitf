@@ -1,0 +1,21 @@
+<%- include("partials/header", { title, user, csrfToken }) %>
+
+<h1>Log in</h1>
+
+<% if (error) { %><p class="error"><%= error %></p><% } %>
+
+<form method="post" action="/login" class="form">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+  <label>SVSU Email</label>
+  <input name="email" type="email" required placeholder="ramizoor@svsu.edu" />
+
+  <label>Password</label>
+  <input name="password" type="password" required />
+
+  <button type="submit">Log in</button>
+</form>
+
+<p class="muted">No account? <a href="/register">Register</a></p>
+
+<%- include("partials/footer") %>

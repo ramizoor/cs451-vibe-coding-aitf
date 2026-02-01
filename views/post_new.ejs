@@ -1,0 +1,26 @@
+<%- include("partials/header", { title, user, csrfToken }) %>
+
+<h1><%= section === "internal" ? "Post Internal AI Project" : "Post External AI Link" %></h1>
+
+<% if (error) { %><p class="error"><%= error %></p><% } %>
+
+<form method="post" action="/<%= section %>/new" class="form">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+  <label>Title</label>
+  <input name="title" required />
+
+  <% if (section === "internal") { %>
+    <label>Description</label>
+    <textarea name="body" rows="7" required></textarea>
+  <% } else { %>
+    <label>URL</label>
+    <textarea name="url" rows="3" required placeholder="https://example.com"></textarea>
+  <% } %>
+
+  <button type="submit">Post</button>
+</form>
+
+<p><a href="/<%= section %>">Back</a></p>
+
+<%- include("partials/footer") %>

@@ -1,0 +1,25 @@
+<%- include("partials/header", { title, user, csrfToken }) %>
+
+<h1>Register</h1>
+<p class="muted">Email must be an <strong>@svsu.edu</strong> address.</p>
+
+<% if (error) { %><p class="error"><%= error %></p><% } %>
+
+<form method="post" action="/register" class="form">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+  <label>Name</label>
+  <input name="name" required />
+
+  <label>SVSU Email</label>
+  <input name="email" type="email" required placeholder="ramizoor@svsu.edu" />
+
+  <label>Password</label>
+  <input name="password" type="password" required minlength="8" />
+
+  <button type="submit">Create account</button>
+</form>
+
+<p class="muted">Already have an account? <a href="/login">Log in</a></p>
+
+<%- include("partials/footer") %>

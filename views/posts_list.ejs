@@ -1,0 +1,24 @@
+<%- include("partials/header", { title, user, csrfToken }) %>
+
+<h1><%= title %></h1>
+
+<% if (user && user.verified) { %>
+  <p><a class="pill" href="/<%= section %>/new">Post a new <%= section === "internal" ? "internal project" : "external link" %></a></p>
+<% } else { %>
+  <p class="muted">Log in and verify to post.</p>
+<% } %>
+
+<% if (!rows.length) { %>
+  <p class="muted">No posts yet.</p>
+<% } else { %>
+  <ul class="list">
+    <% rows.forEach(r => { %>
+      <li>
+        <a href="/posts/<%= r.id %>"><strong><%= r.title %></strong></a>
+        <div class="muted">by <%= r.author_name %> on <%= new Date(r.created_at).toLocaleString() %></div>
+      </li>
+    <% }) %>
+  </ul>
+<% } %>
+
+<%- include("partials/footer") %>

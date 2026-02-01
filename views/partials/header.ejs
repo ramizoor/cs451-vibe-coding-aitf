@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title><%= title %> - SVSU AI Hub</title>
+  <link rel="stylesheet" href="/public/style.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand"><a href="/">SVSU AI Hub</a></div>
+    <nav class="nav">
+      <a href="/internal">Internal</a>
+      <a href="/external">External</a>
+      <% if (user) { %>
+        <span class="hello">Hi, <strong><%= user.name %></strong></span>
+        <% if (!user.verified) { %><a class="pill warn" href="/verify">Verify</a><% } %>
+        <form method="post" action="/logout" class="inline">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button class="linkish" type="submit">Log out</button>
+        </form>
+      <% } else { %>
+        <a href="/login">Log in</a>
+        <a href="/register">Register</a>
+      <% } %>
+    </nav>
+  </header>
+  <main class="container">

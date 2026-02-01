@@ -1,0 +1,30 @@
+<%- include("partials/header", { title, user, csrfToken }) %>
+
+<h1>Verify your SVSU email</h1>
+
+<p class="muted">
+  Enter the 6-digit code sent to your SVSU email.
+</p>
+
+<% if (smtpOn) { %>
+  <p class="muted">SMTP is configured, so the code should arrive by email.</p>
+<% } else { %>
+  <p class="muted">SMTP is not configured. For local demo, the code is shown below.</p>
+<% } %>
+
+<% if (devCode) { %>
+  <div class="callout">
+    Demo code (local): <strong><%= devCode %></strong>
+  </div>
+<% } %>
+
+<% if (error) { %><p class="error"><%= error %></p><% } %>
+
+<form method="post" action="/verify" class="form">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <label>Verification code</label>
+  <input name="code" inputmode="numeric" pattern="[0-9]{6}" required placeholder="123456" />
+  <button type="submit">Verify</button>
+</form>
+
+<%- include("partials/footer") %>
